@@ -9,9 +9,9 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -46,7 +46,7 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
+          <span class="logo-mini"><b>PlS</b></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Plu</b>SIS</span>
         </a>
@@ -63,13 +63,14 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Usuario Plusis</span>
+                  <img src="<?=  $usuario->imagenurl;  ?>"  alt="User Image"  style="width:20px;height:20px;">
+                  <span class="hidden-xs"><?=  $usuario->nombres;  ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      <?php if($usuario->imagenurl==""){ $usuario->imagenurl="imagenes/avatar.jpg"; }  ?>
+                      <img src="<?=  $usuario->imagenurl;  ?>"  alt="User Image"  style="width:50px;height:50px;">
                     <p>
                      Usuario Plusis
                       <small>Member since Nov. 2012</small>
@@ -105,18 +106,22 @@
             </ul>
           </div>
         </nav>
+
+
       </header>
       <!-- Left side column. contains the logo and sidebar -->
+      
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <?php if($usuario->imagenurl==""){ $usuario->imagenurl="imagenes/avatar.jpg"; }  ?>
+              <img src="<?=  $usuario->imagenurl;  ?>"  alt="User Image"  style="width:50px;height:50px;">
             </div>
             <div class="pull-left info">
-              <p>Usuario:Plusis</p>
+              <p>Usuario: <?=  $usuario->nombres;  ?></p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -139,15 +144,29 @@
               </a>
               <ul class="treeview-menu">
                 <li class="active"><a href="javascript:void(0);" onclick="cargarformulario(1);" ><i class="fa fa-circle-o"></i>Agregar usuario </a></li>
-              
+                <li class="active"><a href="javascript:void(0);" onclick="cargarlistado(1,1);" ><i class="fa fa-circle-o"></i>Listado Usuarios</a></li>
+                <li class="active"><a href="javascript:void(0);" onclick="cargarlistado(2,1);" ><i class="fa fa-circle-o"></i>Publicaciones</a></li>
               </ul>
-            </li>
+            </li>  
 
-  
-           
-           
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-fw fa-database"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="javascript:void(0);" onclick="cargarformulario(2);" ><i class="fa fa-circle-o"></i>Cargar Datos Us. </a></li>
+                
+              </ul>
+            </li>  
+
+
           
           </ul>
+
+
+
+
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -157,7 +176,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header"> 
           <h1>
-            Escritorio
+            
             <small>Control panel</small>
           </h1>
           <ol class="breadcrumb">
@@ -166,15 +185,31 @@
           </ol>
         </section>
 
+         <!-- contenido capas modales -->
+
+            <section> 
+                     <div id="capa_modal" class="div_modal" ></div>
+                     <div id="capa_para_edicion" class="div_contenido" > 
+                      <input type="hidden" id="usuario_seleccionado" value="0"  />
+                      <input type="hidden" id="seccion_seleccionada" value="0"  />
+
+                      <div class="margin"  id="botones_control" >
+                                  <button type="button" class="btn btn-primary" onclick="mostrarseccion(1);" >Informacion</button>
+                                  <button type="button" class="btn btn-primary" onclick="mostrarseccion(2);" >Educación</button>
+                                  <button type="button" class="btn btn-primary" onclick="mostrarseccion(3);" >Publicaciones</button>
+                                  <button type="button" class="btn btn-primary" onclick="mostrarseccion(4);" >Proyectos</button>
+                                 
+                      </div>
+                    
+
+                      <div  id="contenido_capa_edicion" ></div>
+            </section>
+
+       
 
         <!-- contenido principal -->
         <section class="content"  id="contenido_principal">
         
-          
-                   
-                  
-
-     
         </section>
     
       <!-- cargador empresa -->
@@ -243,6 +278,8 @@
  
  <!-- javascript del sistema laravel -->
    <script src="js/sistemalaravel.js"></script>
+
+   <script>cargarlistado(1);</script>
 
 
   </body>

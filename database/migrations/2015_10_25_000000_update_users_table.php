@@ -13,7 +13,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-
+            
 
              $table->string('nombres', 60);
              $table->string('apellidos', 60);
@@ -22,9 +22,8 @@ class UpdateUsersTable extends Migration
              $table->string('institucion', 100);
              $table->string('ocupacion', 60);
 
-
         });
     }
 
-
+ 
 }

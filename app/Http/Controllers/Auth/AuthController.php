@@ -71,10 +71,12 @@ class AuthController extends Controller
 
     if ($this->auth->attempt($credentials, $request->has('remember')))
     {
-        return view("home");
+
+        $usuarioactual=\Auth::user();
+       return view('home')->with("usuario",  $usuarioactual);
     }
 
-    return view()->with("msjerror","credenciales incorrectas");
+    return "credenciales incorrectas";
 
     }
 
